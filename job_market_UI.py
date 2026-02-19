@@ -2,7 +2,7 @@
 UI Layer
 Aspects that form the front end (our dashboard).
 Dashboard goals:
-Plot -- Choropleth Map & Bar Chart
+Plot -- Boxplot Map & Bar Chart
 Pick a state and see wage and employment data by county
 - Dropdown -- state picker
 - IntSlider -- top N counties (controls how many counties show in the bar chart)
@@ -19,7 +19,7 @@ Pick a state and see wage and employment data by county
     # "Plot" card
         # slider - top N counties
 # main window with three tabs
-    # Map tab - choropleth of all states colored by selected metric
+    # Map tab - boxplot of all states colored by selected metric
     # Top Counties tab - bar chart of top N counties by selected metric
     # Data Table tab - state level summary table
 
@@ -34,10 +34,10 @@ api = None
 
 # Callback Functions
 def get_map(metric_label):
-    """Draws the choropleth map for the selected metric."""
+    """Draws the Boxplot map for the selected metric."""
     metric_col = api_module.METRICS[metric_label]
     df = api.get_state_summary(metric_col)
-    return diagrams.make_choropleth(df, metric_col, metric_label)
+    return diagrams.make_boxplot(df, metric_col, metric_label)
 
 def get_bar(state, metric_label, top_n):
     """Draws the bar chart for the selected state, metric, and top N."""
@@ -109,7 +109,7 @@ def main():
         theme_toggle=False,
         main=[
             pn.Tabs(
-                ("Map",          pn.pane.Plotly(map_component)),   # choropleth map
+                ("Map",          pn.pane.Plotly(map_component)),   # Boxplot
                 ("Top Counties", pn.pane.Plotly(bar_component)),   # bar chart
                 ("Data Table",   table_component),                 # summary table
                 active=0

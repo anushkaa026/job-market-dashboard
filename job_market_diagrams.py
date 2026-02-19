@@ -1,22 +1,33 @@
 import plotly.express as px
 
+REGION_COLORS = {
+    "Northeast": "#e63946",
+    "Midwest":   "#2a9d8f",
+    "South":     "#e9c46a",
+    "West":      "#457b9d",
+}
 
-def make_choropleth(df, metric_col, metric_label):
-    """
-    Builds a filled U.S. state map colored by the selected metric.
-    """
+def make_boxplot(df, metric_col, metric_label):
+    df = df.dropna(subset=["region"])
 
-    fig = px.choropleth(
+    fig = px.box(
         df,
-        locations="state_fips",
-        locationmode="USA-states",
-        color=metric_col,
-        scope="usa",
+        x="region",
+        y=metric_col,
+        color="region",
         hover_name="state",
-        color_continuous_scale="Blues",
-        labels={metric_col: metric_label},
-        title=f"{metric_label} by State — Q2 2025",
+        color_discrete_map=REGION_COLORS,
+        category_orders={"region": ["Northeast", "Midwest", "South", "West"]},
+        labels={"region": "Region", metric_col: metric_label},
+        title=f"{metric_label} by U.S. Region — Q2 2025",
+        points=False,       # show individual state dots too
     )
+
+    fig.update_layout(
+        height=550,
+        showlegend=False,
+    )
+
     return fig
 
 def make_bar_chart(df, metric_col, metric_label, state):

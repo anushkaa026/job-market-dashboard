@@ -83,6 +83,28 @@ STATE_TO_REGION = {
     "Hawaii": "West",
 }
 
+STATE_TO_REGION = {
+    "Maine": "Northeast", "New Hampshire": "Northeast", "Vermont": "Northeast",
+    "Massachusetts": "Northeast", "Rhode Island": "Northeast", "Connecticut": "Northeast",
+    "New York": "Northeast", "New Jersey": "Northeast", "Pennsylvania": "Northeast",
+
+    "Wisconsin": "Midwest", "Michigan": "Midwest", "Illinois": "Midwest",
+    "Indiana": "Midwest", "Ohio": "Midwest", "North Dakota": "Midwest",
+    "South Dakota": "Midwest", "Nebraska": "Midwest", "Kansas": "Midwest",
+    "Minnesota": "Midwest", "Iowa": "Midwest", "Missouri": "Midwest",
+
+    "Delaware": "South", "Maryland": "South", "District of Columbia": "South",
+    "Virginia": "South", "West Virginia": "South", "North Carolina": "South",
+    "South Carolina": "South", "Georgia": "South", "Florida": "South",
+    "Kentucky": "South", "Tennessee": "South", "Mississippi": "South",
+    "Alabama": "South", "Oklahoma": "South", "Texas": "South",
+    "Arkansas": "South", "Louisiana": "South",
+
+    "Idaho": "West", "Montana": "West", "Wyoming": "West", "Nevada": "West",
+    "Utah": "West", "Colorado": "West", "Arizona": "West", "New Mexico": "West",
+    "Alaska": "West", "Washington": "West", "Oregon": "West", "California": "West",
+    "Hawaii": "West",
+}
 class JobMarketAPI:
     def __init__(self, filename=DATA_FILE_PATH):
         self.df = pd.read_csv(filename, dtype={AREA_FIPS_COL: str})
@@ -100,7 +122,7 @@ class JobMarketAPI:
         df = self.df[
             (self.df["agglvl_code"] == STATE_AGGLVL) &
             (self.df["own_code"] == 0)
-        ].copy()
+            ].copy()
 
         all_metric_cols = list(METRICS.values())
         df = df.dropna(subset=[metric_col, "state"])
@@ -109,7 +131,6 @@ class JobMarketAPI:
 
         cols = ["state", "state_fips", AREA_FIPS_COL, "region"] + all_metric_cols
         return df[cols].reset_index(drop=True)
-
 
     def get_county_data(self, state="All States", metric_col=AVG_WAGE_COL, top_n=15):
         df = self.df[
