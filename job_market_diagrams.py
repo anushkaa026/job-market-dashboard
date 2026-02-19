@@ -45,8 +45,6 @@ def make_bar_chart(df, metric_col, metric_label, state):
         orientation="h",
         title=title,
         labels={metric_col: metric_label, "county_label": "County FIPS"},
-        color=metric_col,
-        color_continuous_scale="Blues",
     )
 
     fig.update_layout(

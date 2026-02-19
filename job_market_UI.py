@@ -101,7 +101,7 @@ def main():
 
 
     layout = pn.template.FastListTemplate(
-        title="U.S. Job Market Explorer — BLS Q2 2025",
+        title="U.S. Job Market Explorer",
         sidebar=[
             search_card,
             plot_card,
@@ -109,13 +109,13 @@ def main():
         theme_toggle=False,
         main=[
             pn.Tabs(
-                ("Map",          pn.pane.Plotly(map_component)),   # Boxplot
+                ("Map", pn.pane.Plotly(map_component)),   # Boxplot
                 ("Top Counties", pn.pane.Plotly(bar_component)),   # bar chart
                 ("Data Table",   table_component),                 # summary table
                 active=0
             )
         ],
-        header_background="#1a5276"
+        header_background="#6a0dad"
 
     ).servable()
 
