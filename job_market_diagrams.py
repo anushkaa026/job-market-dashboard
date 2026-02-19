@@ -5,7 +5,7 @@ def make_choropleth(df, metric_col, metric_label):
     """
     Builds a filled U.S. state map colored by the selected metric.
     """
-    
+
     fig = px.choropleth(
         df,
         locations="state_fips",
